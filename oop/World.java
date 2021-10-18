@@ -1,7 +1,7 @@
 package agh.ics.oop;
 import java.util.ArrayList;
 
-//Piotr Bosak
+//Piotr  Bosak
 public class World {
     public static void main(String[] args) {
         System.out.println("Start");
