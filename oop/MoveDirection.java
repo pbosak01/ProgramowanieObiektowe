@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 //Piotr Bosak
 
-enum Direction {
+public enum MoveDirection {
     FORWARD,
     BACKWARD,
     RIGHT,
