@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
 
 /**
  * The interface responsible for interacting with the map of the world.
@@ -41,7 +40,7 @@ public interface IWorldMap {
     boolean isOccupied(Vector2d position);
 
     /**
-     * Return an object at a given position.
+     * Return an object  at a given position.
      *
      * @param position
      *            The position of the object.

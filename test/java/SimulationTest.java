@@ -43,7 +43,7 @@ public class SimulationTest {
 
     @Test
     void treeAnimalsTest(){
-        String[] directions1 = {"f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f"};
+        String[] directions1 = {"f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f","f"};
         String[] directions2 = {};
         MoveDirection[] directionsParsed1 = OptionsParser.parse(directions1);
         MoveDirection[] directionsParsed2 = OptionsParser.parse(directions2);

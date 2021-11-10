@@ -2,7 +2,6 @@ package agh.ics.oop;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class RectangularMap implements IWorldMap{
@@ -62,6 +61,6 @@ public class RectangularMap implements IWorldMap{
         return null;
     }
     public String toString(){
-        return (map.draw(new Vector2d(0,0),new Vector2d(width,height)));
+        return (map.draw(new  Vector2d(0,0),new Vector2d(width,height)));
     }
 }

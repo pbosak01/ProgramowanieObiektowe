@@ -8,6 +8,7 @@ public enum MoveDirection {
     LEFT,
     ;
 
+
     public String toString() {
         return switch (this) {
             case FORWARD -> "f";

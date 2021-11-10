@@ -53,7 +53,7 @@ public class Animal {
                 }
                 break;
             case BACKWARD:
-                Vector2d unitVector1 = this.orientation.toUnitVector();
+                Vector2d unitVector1 =  this.orientation.toUnitVector();
                 if (this.map.canMoveTo(this.position.add(unitVector1))){
                     this.position = this.position.subtract(unitVector1);
                 }

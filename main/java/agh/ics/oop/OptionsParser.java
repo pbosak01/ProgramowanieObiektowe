@@ -10,7 +10,7 @@ public class OptionsParser{
         int i =0;
         for(String element : list){
             switch(element){
-                case "f","forward":
+                case "f", "forward":
                     result[i]=(MoveDirection.FORWARD);
                     break;
                 case "b","backward":

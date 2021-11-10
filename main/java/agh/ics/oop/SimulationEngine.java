@@ -6,6 +6,7 @@ public class SimulationEngine implements IEngine{
     public IWorldMap map;
     public Vector2d[] positions;
 
+
     public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions) {
         this.moves = moves;
         this.map = map;
