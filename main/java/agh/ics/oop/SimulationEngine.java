@@ -5,6 +5,7 @@ public class SimulationEngine implements IEngine{
     public MoveDirection[] moves;
     public IWorldMap map;
     public Vector2d[] positions;
+    private int quantity=0;
 
 
     public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions) {
@@ -13,19 +14,20 @@ public class SimulationEngine implements IEngine{
         this.positions = positions;
 
         for (Vector2d position : positions) {
-            map.place(new Animal(map, position));
+            if(map.place(new Animal(map, position))){
+                quantity +=1;
+            };
         }
     }
 
     public void run() {
-        RectangularMap map1 = (RectangularMap) map;
-        int len = map1.animals.size();
+        GrassField map1 = (GrassField) map;
         int i = 0;
         for (MoveDirection move : moves){
             if(move==null){
                 return;
             }
-            map1.animals.get(i%len).move(move);
+            map1.animals.get(i%this.quantity).move(move);
             i+=1;
         }
 
