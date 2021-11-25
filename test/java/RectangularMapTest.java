@@ -6,23 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RectangularMapTest {
-    @Test
-    void testCanMoveTo(){
-        RectangularMap map = new RectangularMap(4, 4);
-        assertTrue(map.canMoveTo(new Vector2d(1,1)));
-        assertTrue(map.canMoveTo(new Vector2d(0,0)));
-        assertTrue(map.canMoveTo(new Vector2d(4,4)));
-        assertFalse(map.canMoveTo(new Vector2d(0,-1)));
-        assertFalse(map.canMoveTo(new Vector2d(0,5)));
-        assertFalse(map.canMoveTo(new Vector2d(100,5)));
 
-        map.animals.add(new Animal(map,new Vector2d(1,1)));
-        map.animals.add(new Animal(map,new Vector2d(4,2)));
-
-        assertFalse(map.canMoveTo(new Vector2d(1,1)));
-        assertFalse(map.canMoveTo(new Vector2d(4,2)));
-        assertTrue(map.canMoveTo(new Vector2d(2,2)));
-    }
     @Test
     void testPlace(){
         RectangularMap map = new RectangularMap(4, 4);
@@ -37,15 +21,35 @@ public class RectangularMapTest {
         assertFalse(map.place(animal4));
     }
     @Test
+    void testCanMoveTo(){
+        RectangularMap map = new RectangularMap(4, 4);
+        assertTrue(map.canMoveTo(new Vector2d(1,1)));
+        assertTrue(map.canMoveTo(new Vector2d(0,0)));
+        assertTrue(map.canMoveTo(new Vector2d(4,4)));
+        assertFalse(map.canMoveTo(new Vector2d(0,-1)));
+        assertFalse(map.canMoveTo(new Vector2d(0,5)));
+        assertFalse(map.canMoveTo(new Vector2d(100,5)));
+
+        map.place(new Animal(map,new Vector2d(1,1)));
+        map.place(new Animal(map,new Vector2d(4,2)));
+
+        assertFalse(map.canMoveTo(new Vector2d(1,1)));
+        assertFalse(map.canMoveTo(new Vector2d(4,2)));
+        assertTrue(map.canMoveTo(new Vector2d(2,2)));
+    }
+
+    @Test
     void testIsOccupied(){
         RectangularMap map = new RectangularMap(4, 4);
         Animal animal1 = new Animal(map, new Vector2d(1, 2));
         Animal animal2 = new Animal(map, new Vector2d(0, 2));
         Animal animal3 = new Animal(map, new Vector2d(4, 4));
 
-        map.animals.add(animal1);
-        map.animals.add(animal2);
-        map.animals.add(animal3);
+        assertFalse(map.isOccupied(new Vector2d(0,0)));
+
+        map.place(animal1);
+        map.place(animal2);
+        map.place(animal3);
 
         assertTrue(map.isOccupied(new Vector2d(1,2)));
         assertTrue(map.isOccupied(new Vector2d(0,2)));
@@ -60,9 +64,9 @@ public class RectangularMapTest {
         Animal animal2 = new Animal(map, new Vector2d(0, 2));
         Animal animal3 = new Animal(map, new Vector2d(4, 4));
 
-        map.animals.add(animal1);
-        map.animals.add(animal2);
-        map.animals.add(animal3);
+        map.place(animal1);
+        map.place(animal2);
+        map.place(animal3);
 
         assertEquals(animal1,map.objectAt(new Vector2d(1,2)));
         assertEquals(animal2,map.objectAt(new Vector2d(0,2)));

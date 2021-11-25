@@ -1,11 +1,13 @@
 package agh.ics.oop;
 
 
-public class SimulationEngine implements IEngine{
+import java.util.ArrayList;
+
+public class SimulationEngine implements IEngine,IPositionChangeObserver{
     public MoveDirection[] moves;
     public IWorldMap map;
     public Vector2d[] positions;
-    private int quantity=0;
+    private ArrayList<Vector2d> animals = new ArrayList<>();
 
 
     public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions) {
@@ -13,23 +15,37 @@ public class SimulationEngine implements IEngine{
         this.map = map;
         this.positions = positions;
 
+
         for (Vector2d position : positions) {
-            if(map.place(new Animal(map, position))){
-                quantity +=1;
-            };
+            Animal animal = new Animal(map, position);
+            if(map.place(animal)){
+                animal.addObserver(this);
+                animals.add(position);
+            }
         }
     }
 
     public void run() {
-        GrassField map1 = (GrassField) map;
+        AbstractWorldMap map1 = (AbstractWorldMap) map;
+        Animal animal;
+        int quantity = animals.size();
         int i = 0;
         for (MoveDirection move : moves){
             if(move==null){
                 return;
             }
-            map1.animals.get(i%this.quantity).move(move);
+            animal = (Animal) map1.elements.get(positions[i%quantity]);
+            animal.move(move);
             i+=1;
         }
+    }
 
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        for(int i=0;i<this.positions.length;i+=1){
+            if(this.positions[i].equals(oldPosition)){
+                this.positions[i]=newPosition;
+            }
+        }
     }
 }

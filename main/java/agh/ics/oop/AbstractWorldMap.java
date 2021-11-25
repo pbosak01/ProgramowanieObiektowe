@@ -1,15 +1,18 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
 
-public abstract class  AbstractWorldMap  implements IWorldMap{
-    public ArrayList<Animal> animals = new ArrayList<>();
+public abstract class  AbstractWorldMap  implements IWorldMap,IPositionChangeObserver{
+    public Map<Vector2d,AbstractWorldMapElement> elements = new HashMap<>();
     public MapVisualizer map = new MapVisualizer(this);
-    public ArrayList<Grass> grasses =new ArrayList<>();
+
 
     public boolean place(Animal animal){
         if (this.canMoveTo(animal.getPosition())){
-            animals.add(animal);
+            elements.put(animal.getPosition(),animal);
+
             return true;
         }
         return false;
@@ -17,46 +20,34 @@ public abstract class  AbstractWorldMap  implements IWorldMap{
     public abstract boolean canMoveTo(Vector2d position);
 
     public boolean isOccupied(Vector2d position) {
-        for (Animal animal : animals){
-            if (animal.getPosition().equals(position)){
-                return true;
-            }
-        }
-        for (Grass grass : grasses){
-            if (grass.getPosition().equals(position)){
-                return true;
-            }
-        }
-        return false;
+        return elements.containsKey(position);
     }
 
     public Object objectAt(Vector2d position) {
-        for (Animal animal : animals){
-            if (animal.getPosition().equals(position)){
-                return animal;
-            }
-        }
-        for (Grass grass : grasses){
-            if (grass.getPosition().equals(position)){
-                return grass;
-            }
-        }
-
-        return null;
+        return elements.get(position);
     }
+
 
     public String toString(){
         Vector2d upperRight = new Vector2d(-2147483648,-2147483648);
         Vector2d lowerLeft = new Vector2d(2147483647,2147483647);
-        for (Animal animal : animals){
-            upperRight = upperRight.upperRight(animal.getPosition());
-            lowerLeft = lowerLeft.lowerLeft(animal.getPosition());
-        }
-        for (Grass grass : grasses){
-            upperRight = upperRight.upperRight(grass.getPosition());
-            lowerLeft = lowerLeft.lowerLeft(grass.getPosition());
+        Set<Vector2d> animalSet = elements.keySet();
+        for (Vector2d position : animalSet){
+            upperRight = upperRight.upperRight(position);
+            lowerLeft = lowerLeft.lowerLeft(position);
         }
         return (map.draw(lowerLeft,upperRight));
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        AbstractWorldMapElement animal = elements.get(oldPosition);
+        elements.remove(oldPosition);
+        elements.put(newPosition,animal);
+    }
+    public boolean isGrass(Object object){
+        Grass grass = new Grass(new Vector2d(1, 1));
+        return (object.getClass()==grass.getClass());
     }
 
 }

@@ -17,7 +17,7 @@ public class RectangularMap extends AbstractWorldMap{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RectangularMap that = (RectangularMap) o;
-        return width == that.width && height == that.height && Objects.equals(animals, that.animals);
+        return width == that.width && height == that.height && Objects.equals(elements, that.elements);
     }
 
 
