@@ -22,6 +22,7 @@ public class SimulationEngine implements IEngine,IPositionChangeObserver{
                 animal.addObserver(this);
                 animals.add(position);
             }
+
         }
     }
 
@@ -41,7 +42,7 @@ public class SimulationEngine implements IEngine,IPositionChangeObserver{
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition,AbstractWorldMapElement element) {
         for(int i=0;i<this.positions.length;i+=1){
             if(this.positions[i].equals(oldPosition)){
                 this.positions[i]=newPosition;

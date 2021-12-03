@@ -10,16 +10,23 @@ public class RectangularMapTest {
     @Test
     void testPlace(){
         RectangularMap map = new RectangularMap(4, 4);
-        Animal animal1 = new Animal(map, new Vector2d(-1, 2));
+        Animal animal1 = new Animal(map, new Vector2d(1, 2));
         Animal animal2 = new Animal(map, new Vector2d(0, 2));
         Animal animal3 = new Animal(map, new Vector2d(4, 4));
         Animal animal4 = new Animal(map, new Vector2d(0, 2));
 
-        assertFalse(map.place(animal1));
+        assertTrue(map.place(animal1));
         assertTrue(map.place(animal2));
         assertTrue(map.place(animal3));
-        assertFalse(map.place(animal4));
+        try {
+            map.place(animal4);
+            fail();
+        }catch(IllegalArgumentException ex){
+            assertEquals("Position (0,2) is occupied", ex.getMessage());
+        }
     }
+
+
     @Test
     void testCanMoveTo(){
         RectangularMap map = new RectangularMap(4, 4);

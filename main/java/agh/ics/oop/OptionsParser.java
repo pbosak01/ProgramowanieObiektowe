@@ -4,7 +4,7 @@ package agh.ics.oop;
 
 public class OptionsParser{
 
-    public static MoveDirection[] parse(String[] list){
+    public static MoveDirection[] parse(String[] list) {
         int len = list.length;
         MoveDirection[] result = new MoveDirection[len];
         int i =0;
@@ -24,7 +24,8 @@ public class OptionsParser{
                     break;
                 default:
                     i -=1;
-                    break;
+                    throw new IllegalArgumentException( element + " is not legal move specification");
+
             }
             i+=1;
         }

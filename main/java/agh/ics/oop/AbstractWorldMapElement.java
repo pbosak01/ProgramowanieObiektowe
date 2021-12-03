@@ -3,8 +3,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 
 public abstract class AbstractWorldMapElement {
-    private Vector2d position;
-    private ArrayList<IPositionChangeObserver> observers = new ArrayList<IPositionChangeObserver>();
+    private ArrayList<IPositionChangeObserver> observers = new ArrayList<>();
 
     public abstract Vector2d getPosition();
 
@@ -27,9 +26,9 @@ public abstract class AbstractWorldMapElement {
             i +=1;
         }
     }
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition,AbstractWorldMapElement element){
         for (IPositionChangeObserver observer : observers){
-            observer.positionChanged(oldPosition,newPosition);
+            observer.positionChanged(oldPosition,newPosition,element);
         }
     }
 }

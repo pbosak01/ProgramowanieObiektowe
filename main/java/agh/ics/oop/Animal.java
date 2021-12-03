@@ -55,14 +55,14 @@ public class Animal extends AbstractWorldMapElement{
             case FORWARD:
                 if (this.map.canMoveTo(this.position.add(unitVector))){
                     this.position = this.position.add(unitVector);
-                    positionChanged(oldPosition,this.position);
+                    positionChanged(oldPosition,this.position,this);
 
                 }
                 break;
             case BACKWARD:
                 if (this.map.canMoveTo(this.position.add(unitVector))){
                     this.position = this.position.subtract(unitVector);
-                    positionChanged(oldPosition,this.position);
+                    positionChanged(oldPosition,this.position,this);
                 }
                 break;
         }

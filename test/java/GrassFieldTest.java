@@ -32,8 +32,14 @@ public class GrassFieldTest {
         assertTrue(map.place(animal1));
         assertTrue(map.place(animal3));
         assertTrue(map.place(animal4));
-        assertFalse(map.place(animal2));
+        try {
+            map.place(animal2);
+            fail();
+        }catch(IllegalArgumentException ex){
+            assertEquals("Position (3,4) is occupied", ex.getMessage());
+            }
     }
+
 
     @Test
     void testIsOccupied() {

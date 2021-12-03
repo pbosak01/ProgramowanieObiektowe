@@ -7,15 +7,18 @@ import java.util.Set;
 public abstract class  AbstractWorldMap  implements IWorldMap,IPositionChangeObserver{
     public Map<Vector2d,AbstractWorldMapElement> elements = new HashMap<>();
     public MapVisualizer map = new MapVisualizer(this);
+    public MapBoundary mapBoundary = new MapBoundary();
 
 
     public boolean place(Animal animal){
         if (this.canMoveTo(animal.getPosition())){
             elements.put(animal.getPosition(),animal);
-
+            mapBoundary.addElement(animal);
             return true;
         }
-        return false;
+        else{
+            throw new IllegalArgumentException("Position " +  animal.getPosition().toString() + " is occupied");
+        }
     }
     public abstract boolean canMoveTo(Vector2d position);
 
@@ -40,10 +43,10 @@ public abstract class  AbstractWorldMap  implements IWorldMap,IPositionChangeObs
     }
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        AbstractWorldMapElement animal = elements.get(oldPosition);
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition,AbstractWorldMapElement element) {
+        //AbstractWorldMapElement animal = elements.get(oldPosition);
         elements.remove(oldPosition);
-        elements.put(newPosition,animal);
+        elements.put(newPosition,element);
     }
     public boolean isGrass(Object object){
         Grass grass = new Grass(new Vector2d(1, 1));

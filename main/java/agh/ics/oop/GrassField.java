@@ -6,6 +6,7 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap{
     public int quantity;
 
+
     public GrassField(int quantity) {
         this.quantity = quantity;
         putGrass(quantity);
@@ -22,7 +23,9 @@ public class GrassField extends AbstractWorldMap{
                 y = random.nextInt((int)Math.sqrt(quantity*10));
             }
             while(isOccupied(new Vector2d(x,y)));
-            elements.put(new Vector2d(x,y),new Grass(new Vector2d(x,y)));
+            Grass grass = new Grass(new Vector2d(x,y));
+            elements.put(new Vector2d(x,y),grass);
+            mapBoundary.addElement(grass);
         }
     }
 
