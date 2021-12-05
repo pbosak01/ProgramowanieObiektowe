@@ -24,7 +24,7 @@ public class MapBoundary implements IPositionChangeObserver{
             return new Vector2d(xSet.last().getPosition().x,ySet.last().getPosition().y);
     }
     public Vector2d getLower(){
-        return new Vector2d(xSet.last().getPosition().x,ySet.last().getPosition().y);
+        return new Vector2d(xSet.first().getPosition().x,ySet.first().getPosition().y);
     }
     public void addElement(AbstractWorldMapElement element){
         xSet.add(element);
