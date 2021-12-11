@@ -14,6 +14,7 @@ public abstract class  AbstractWorldMap  implements IWorldMap,IPositionChangeObs
         if (this.canMoveTo(animal.getPosition())){
             elements.put(animal.getPosition(),animal);
             mapBoundary.addElement(animal);
+            animal.addObserver(mapBoundary);
             return true;
         }
         else{
