@@ -1,6 +1,5 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Animal extends AbstractWorldMapElement{
@@ -60,7 +59,7 @@ public class Animal extends AbstractWorldMapElement{
                 }
                 break;
             case BACKWARD:
-                if (this.map.canMoveTo(this.position.add(unitVector))){
+                if (this.map.canMoveTo(this.position.subtract(unitVector))){
                     this.position = this.position.subtract(unitVector);
                     positionChanged(oldPosition,this.position,this);
                 }
@@ -68,5 +67,14 @@ public class Animal extends AbstractWorldMapElement{
         }
     }
 
+    @Override
+    public String getPath() {
+        return switch (this.orientation) {
+            case NORTH -> "src/main/resources/up.png";
+            case SOUTH -> "src/main/resources/down.png";
+            case WEST -> "src/main/resources/left.png";
+            case EAST -> "src/main/resources/right.png";
 
+        };
+    }
 }

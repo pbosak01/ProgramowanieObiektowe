@@ -9,6 +9,8 @@ public abstract class AbstractWorldMapElement {
 
     public abstract String toString();
 
+    public abstract String getPath();
+
     public void addObserver(IPositionChangeObserver observer){
         for (IPositionChangeObserver observ : observers){
             if (observ.equals(observer)) return;

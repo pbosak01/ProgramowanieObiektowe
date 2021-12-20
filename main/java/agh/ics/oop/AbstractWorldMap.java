@@ -42,8 +42,7 @@ public abstract class  AbstractWorldMap  implements IWorldMap,IPositionChangeObs
         elements.put(newPosition,element);
     }
     public boolean isGrass(Object object){
-        Grass grass = new Grass(new Vector2d(1, 1));
-        return (object.getClass()==grass.getClass());
+        return (object instanceof Grass);
     }
 
 }

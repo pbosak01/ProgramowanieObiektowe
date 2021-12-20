@@ -1,19 +1,25 @@
 package agh.ics.oop;
 
 
+import agh.ics.oop.gui.App;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class SimulationEngine implements IEngine,IPositionChangeObserver{
+public class SimulationEngine implements IEngine,IPositionChangeObserver,Runnable{
     public MoveDirection[] moves;
     public IWorldMap map;
     public Vector2d[] positions;
     private ArrayList<Vector2d> animals = new ArrayList<>();
+    private App app;
 
 
-    public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions) {
+    public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] positions,App app) {
         this.moves = moves;
         this.map = map;
         this.positions = positions;
+        this.app = app;
 
 
         for (Vector2d position : positions) {
@@ -26,7 +32,7 @@ public class SimulationEngine implements IEngine,IPositionChangeObserver{
         }
     }
 
-    public void run() {
+    public void run()  {
         AbstractWorldMap map1 = (AbstractWorldMap) map;
         Animal animal;
         int quantity = animals.size();
@@ -38,6 +44,16 @@ public class SimulationEngine implements IEngine,IPositionChangeObserver{
             animal = (Animal) map1.elements.get(positions[i%quantity]);
             animal.move(move);
             i+=1;
+            try {
+                app.drawMap();
+            }catch (FileNotFoundException e){
+                System.out.println(e.getMessage());
+            }
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException exception) {
+                System.out.println(exception.toString());
+            }
         }
     }
 
@@ -48,5 +64,6 @@ public class SimulationEngine implements IEngine,IPositionChangeObserver{
                 this.positions[i]=newPosition;
             }
         }
+        
     }
 }
